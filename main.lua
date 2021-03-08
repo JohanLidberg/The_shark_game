@@ -10,28 +10,28 @@ function love.draw(dt)
 end
 
 function love.load()
-  world = love.physics.newWorld(0, 600, true) 
+  world = love.physics.newWorld(0, 600, true)
   ball = {}
   ball.b = love.physics.newBody(world, 400, 200, "dynamic")
-  ball.b:setMass(20)
-  ball.s = love.physics.CircleShape(20)
-  ball.f = love.physics.newunit(ball.b, ball.s)
+  ball.b:setMass(20)                     
+  ball.s = love.physics.newCircleShape(20)
+  ball.f = love.physics.newFixture(ball.b, ball.s)
 
-static = {}
-  static.b = love.physics.newBody(world, 400, 500, "static")
-  static.s = love.physics.newRectangleShape(200, 50)
-  static.f = love.physics.newFixture(static.b, static.s)
-  static.f:setUserData("Block")
+block = {}
+  block.b = love.physics.newBody(world, 400, 500, "static")
+  block.s = love.physics.newRectangleShape(200, 50)
+  block.f = love.physics.newFixture(block.b, block.s)
+  block.f:setUserData("Block")
 
-  static.a = love.physics.newBody(world, 100, 500, "static")
-  static.c = love.physics.newRectangleShape(200, 50)
-  static.q = love.physics.newFixture(static.a, static.c)
-  static.f:setUserData("Block")
+  block.a = love.physics.newBody(world, 100, 500, "static")
+  block.c = love.physics.newRectangleShape(200, 50)
+  block.q = love.physics.newFixture(block.a, block.c)
+  block.f:setUserData("Block")
 
-  static.y = love.physics.newBody(world, 250, 300, "static")
-  static.t = love.physics.newRectangleShape(200, 50)
-  static.i = love.physics.newFixture(static.y, static.t)
-  static.f:setUserData("Block")
+  block.y = love.physics.newBody(world, 250, 300, "static")
+  block.t = love.physics.newRectangleShape(200, 50)
+  block.i = love.physics.newFixture(block.y, block.t)
+  block.f:setUserData("Block")
 end
 
 function love.update(dt)
@@ -57,11 +57,11 @@ function love.draw()
   love.graphics.circle("fill", ball.b:getX(),ball.b:getY(), ball.s:getRadius(),20 )
 
   love.graphics.setColor{0, 1, 0, 1}
-  love.graphics.polygon("fill", static.b:getWorldPoints(static.s:getPoints()))
+  love.graphics.polygon("fill", block():getWorldPoints(block:getPoints()))
 
   love.graphics.setColor{0, 1, 0, 1}
-  love.graphics.polygon("fill", static.a:getWorldPoints(static.c:getPoints()))
+  love.graphics.polygon("fill", block.a:getWorldPoints(block.c:getPoints()))
 
   love.graphics.setColor{0, 1, 0, 1}
-  love.graphics.polygon("fill", static.y:getWorldPoints(static.t:getPoints()))
+  love.graphics.polygon("fill", block.y:getWorldPoints(block.t:getPoints()))
 end
