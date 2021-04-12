@@ -1,121 +1,169 @@
-
-
-function love.load()
-
-  world = love.physics.newWorld(0, 400)
-
-
-
-  ball = {}
-  ball.body = love.physics.newBody(world, 380, 200, "dynamic")
-  ball.body:setMass(5)
-  ball.shape = love.physics.newPolygonShape(0, 0, 0, 20, 40, 20, 40, 0)
-  ball.fixture = love.physics.newFixture(ball.body, ball.shape)
-  image1 = love.graphics.newImage("orange bild.png")
-
-
-  ball2 = {}
-  ball2.body = love.physics.newBody(world, 420, 200, "dynamic")
-  ball2.body:setMass(5)
-  ball2.shape = love.physics.newPolygonShape(0, 0, 0, 20, 40, 20, 40, 0)
-  ball2.fixture = love.physics.newFixture(ball2.body, ball2.shape)
-
-
-
-  block = {}
-  block.body = love.physics.newBody(world, 200, 450, 'static')
-  block.shape = love.physics.newPolygonShape(0, 0, 0, 20, 400, 20, 400, 0)
-  block.fixture = love.physics.newFixture(block.body, block.shape)
-
-  block.sbody = love.physics.newBody(world, 200, 200, 'static')
-  block.fshape = love.physics.newPolygonShape(0, 0, 0, 20, 400, 20, 400, 0)
-  block.gfixture = love.physics.newFixture(block.sbody, block.fshape)
-
-  block.qbody = love.physics.newBody(world, 1, 1, 'static')
-  block.wshape = love.physics.newPolygonShape(0, 0, 0, 900, 20, 900, 20, 0)
-  block.efixture = love.physics.newFixture(block.qbody, block.wshape)
-
-  block.rbody = love.physics.newBody(world, 780, 1, 'static')
-  block.tshape = love.physics.newPolygonShape(0, 0, 0, 900, 20, 900, 20, 0)
-  block.yfixture = love.physics.newFixture(block.rbody, block.tshape)
-
-  block.ubody = love.physics.newBody(world, 1, 1, 'static')
-  block.ishape = love.physics.newPolygonShape(0, 0, 0, 20, 900, 20, 900, 0)
-  block.ofixture = love.physics.newFixture(block.ubody, block.ishape)
-
-  block.pbody = love.physics.newBody(world, 1, 580, 'static')
-  block.ashape = love.physics.newPolygonShape(0, 0, 0, 20, 900, 20, 900, 0)
-  block.sfixture = love.physics.newFixture(block.pbody, block.ashape)
-
-  block.dbody = love.physics.newBody(world, 400, 1, 'static')
-  block.kshape = love.physics.newPolygonShape(0, 0, 0, 900, 20, 900, 20, 0)
-  block.hfixture = love.physics.newFixture(block.dbody, block.kshape)
-
+require "collission"
+function love.keypressed(k)
+  if k == 'r' then
+    love.event.quit( "restart" )
+  end
+  if k == "escape" then
+    love.event.quit("quit")
+  end
 
 end
+function love.load()
+  math.random(os.time())
+  image = love.graphics.newImage("background.png")
 
+  player = {}
+  player.x = 100
+  player.y = 100
+  player.width = 200
+  player.height = 100
+  player.image = love.graphics.newImage("sharkcartoonplayer1.png")
 
+  score = 0
+  myFont = love.graphics.newFont(40)
 
+  player2 = {}
+  player2.x = 500
+  player2.y = 100
+  player2.width = 200
+  player2.height = 100
+  player2.image = love.graphics.newImage("sharkcartoon.png")
+
+  player2score = 0
+  player2myFont = love.graphics.newFont(40)
+
+  lava = {}
+  lava.x = 400
+  lava.y = 300
+  lava.width = 30
+  lava.height = 30
+  lava.image = love.graphics.newImage("smallfish.png")
+
+  lava4 = {}
+  lava4.x = 300
+  lava4.y = 400
+  lava4.width = 30
+  lava4.height = 30
+  lava4.image = love.graphics.newImage("smallfish.png")
+
+  lava2 = {}
+  lava2.x = 300
+  lava2.y = 400
+  lava2.width = 30
+  lava2.height = 30
+  lava4.image = love.graphics.newImage("smallfish.png")
+
+  lava = {}
+  lava.x = 400
+  lava.y = 300
+  lava.width = 30
+  lava.height = 30
+  lava.image = love.graphics.newImage("smallfish.png")
+
+  lava4 = {}
+  lava4.x = 300
+  lava4.y = 400
+  lava4.width = 30
+  lava4.height = 30
+  lava4.image = love.graphics.newImage("smallfish.png")
+
+  lava2 = {}
+  lava2.x = 300
+  lava2.y = 400
+  lava2.width = 30
+  lava2.height = 30
+  lava2.image = love.graphics.newImage("smallfish.png")
+
+  
+
+  
+end
 
 function love.update(dt)
-  world:update(dt)
-
-
   if love.keyboard.isDown("d") then
-    ball.body:applyForce(100, 0)
+    player.x = player.x + 10
   elseif love.keyboard.isDown("a") then
-    ball.body:applyForce(-100, 0)
-  end
-  if love.keyboard.isDown("w") then
-    ball.body:applyForce(0, -1000)
+    player.x = player.x - 10
   elseif love.keyboard.isDown("s") then
-    ball.body:applyForce(0, 1000)
+    player.y = player.y + 10
+  elseif love.keyboard.isDown("w") then
+   player.y = player.y - 10
+  end
+  if player.x >= love.graphics.getWidth() then 
+    player.x = player.x - 10
+
+  end
+
+  if love.keyboard.isDown("right") then
+    player2.x = player2.x + 10
+  elseif love.keyboard.isDown("left") then
+    player2.x = player2.x - 10
+  elseif love.keyboard.isDown("down") then
+    player2.y = player2.y + 10
+  elseif love.keyboard.isDown("up") then
+   player2.y = player2.y - 10
+  end
+
+
+if AABB(player.x, player.y, player.width, player.height, lava.x, lava.y, lava.width, lava.height) then
+  lava.x = math.random(0, 800 - lava.width)
+  lava.y = math.random(0, 600 - lava.height)
+  score = score + 1
+
 end
-if ball == block then 
-love.window.showMessageBox("Game over, press r to resset")
+if AABB(player.x, player.y, player.width, player.height,lava4.x, lava4.y, lava4.width, lava4.height) then
+  lava4.x = math.random(0, 800 - lava4.width)
+  lava4.y = math.random(0, 600 - lava4.height)
+  score = score + 1
+end
+if AABB(player.x, player.y, player.width, player.height, lava2.x, lava2.y, lava2.width, lava2.height) then
+  lava2.x = math.random(0, 800 - lava2.width)
+  lava2.y = math.random(0, 600 - lava2.height)
+  score = score + 1
 end
 
-if love.keyboard.isDown("right") then
-  ball2.body:applyForce(100, 0)
-elseif love.keyboard.isDown("left") then
-  ball2.body:applyForce(-100, 0)
+  if score == 20 then
+  love.window.showMessageBox("Victory", "shark 1 won!", "info")
+  love.load()
 end
-if love.keyboard.isDown("up") then
-  ball2.body:applyForce(0, -1000)
-elseif love.keyboard.isDown("down") then
-  ball2.body:applyForce(0, 1000)
+if AABB(player2.x, player2.y, player2.width, player2.height, lava.x, lava.y, lava.width, lava.height) then
+  lava.x = math.random(0, 800 - lava.width)
+  lava.y = math.random(0, 600 - lava.height)
+  player2score = player2score + 1
+
 end
+if AABB(player2.x, player2.y, player2.width, player2.height,lava4.x, lava4.y, lava4.width, lava4.height) then
+  lava4.x = math.random(0, 800 - lava4.width)
+  lava4.y = math.random(0, 600 - lava4.height)
+  player2score = player2score + 1
 end
+if AABB(player2.x, player2.y, player2.width, player2.height, lava2.x, lava2.y, lava2.width, lava2.height) then
+  lava2.x = math.random(0, 800 - lava2.width)
+  lava2.y = math.random(0, 600 - lava2.height)
+  player2score = player2score + 1
+end
+if player2score == 20 then
+  love.window.showMessageBox("Victory", "shark 2 won!", "info")
+  love.load()
+end
+end 
 
 function love.draw()
-  love.graphics.setBackgroundColor{0, 0, 1, 1}
+  love.graphics.draw(image, background)
 
-  love.graphics.draw(image1, 100, 100)
-  love.graphics.setColor(0, 1, 0, 1)
-  love.graphics.polygon('fill', ball.body:getWorldPoints(ball.shape:getPoints()))
+  love.graphics.draw(player.image, player.x, player.y)
 
-  love.graphics.setColor(0, 1, 0, 1)
-  love.graphics.polygon('fill', ball2.body:getWorldPoints(ball2.shape:getPoints()))
+  love.graphics.draw(player2.image, player2.x, player2.y)
 
-  love.graphics.setColor{0, 1, 1, 1}
-  love.graphics.polygon('fill', block.body:getWorldPoints(block.shape:getPoints()))
+  love.graphics.draw(lava.image, lava.x, lava.y)
+  love.graphics.draw(lava4.image, lava4.x, lava4.y)
+  love.graphics.draw(lava2.image, lava2.x, lava2.y)
 
-  love.graphics.setColor{0, 1, 1, 1}
-  love.graphics.polygon('fill', block.sbody:getWorldPoints(block.fshape:getPoints()))
 
-  love.graphics.setColor{0, 1, 1, 1}
-  love.graphics.polygon('fill', block.qbody:getWorldPoints(block.wshape:getPoints()))
+  love.graphics.setColor(1, 1, 1, 1)
+  love.graphics.setFont(myFont)
+  love.graphics.print(score, 20, 10)
 
-  love.graphics.setColor{0, 1, 1, 1}
-  love.graphics.polygon('fill', block.rbody:getWorldPoints(block.tshape:getPoints()))
-
-  love.graphics.setColor{0, 1, 1, 1}
-  love.graphics.polygon('fill', block.ubody:getWorldPoints(block.ishape:getPoints()))
-
-  love.graphics.setColor{0, 1, 1, 1}
-  love.graphics.polygon('fill', block.pbody:getWorldPoints(block.ashape:getPoints()))
-
-  love.graphics.setColor{0, 1, 1, 1}
-  love.graphics.polygon('fill', block.dbody:getWorldPoints(block.kshape:getPoints()))
-
+  love.graphics.setFont(player2myFont)
+  love.graphics.print(player2score, 750, 10)
 end

@@ -1,0 +1,10 @@
+{
+    "Lua.diagnostics.globals": [
+        "love",
+        "player",
+        "Player"
+    ],
+    "Lua.diagnostics.disable": [
+        "redundant-parameter"
+    ]
+}
