@@ -89,10 +89,7 @@ function love.update(dt)
   elseif love.keyboard.isDown("w") then
    player.y = player.y - 10
   end
-  if player.x >= love.graphics.getWidth() then 
-    player.x = player.x - 10
-
-  end
+  
 
   if love.keyboard.isDown("right") then
     player2.x = player2.x + 10
