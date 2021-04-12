@@ -1,3 +1,6 @@
+local backgroundmusic = love.audio.newSource("underSea.wav", "stream")
+backgroundmusic:play()
+
 require "collission"
 function love.keypressed(k)
   if k == 'r' then
@@ -10,14 +13,15 @@ function love.keypressed(k)
 end
 function love.load()
   math.random(os.time())
-  image = love.graphics.newImage("background.png")
+
+  image = love.graphics.newImage("pictures/background3.png")
 
   player = {}
   player.x = 100
   player.y = 100
   player.width = 200
   player.height = 100
-  player.image = love.graphics.newImage("sharkcartoonplayer1.png")
+  player.image = love.graphics.newImage("pictures/sharkcartoonplayer1.png")
 
   score = 0
   myFont = love.graphics.newFont(40)
@@ -27,7 +31,7 @@ function love.load()
   player2.y = 100
   player2.width = 200
   player2.height = 100
-  player2.image = love.graphics.newImage("sharkcartoon.png")
+  player2.image = love.graphics.newImage("pictures/sharkcartoon.png")
 
   player2score = 0
   player2myFont = love.graphics.newFont(40)
@@ -37,46 +41,42 @@ function love.load()
   lava.y = 300
   lava.width = 30
   lava.height = 30
-  lava.image = love.graphics.newImage("smallfish.png")
+  lava.image = love.graphics.newImage("pictures/smallfish.png")
 
   lava4 = {}
   lava4.x = 300
   lava4.y = 400
   lava4.width = 30
   lava4.height = 30
-  lava4.image = love.graphics.newImage("smallfish.png")
+  lava4.image = love.graphics.newImage("pictures/smallfish.png")
 
   lava2 = {}
   lava2.x = 300
   lava2.y = 400
   lava2.width = 30
   lava2.height = 30
-  lava4.image = love.graphics.newImage("smallfish.png")
+  lava4.image = love.graphics.newImage("pictures/smallfish.png")
 
   lava = {}
   lava.x = 400
   lava.y = 300
   lava.width = 30
   lava.height = 30
-  lava.image = love.graphics.newImage("smallfish.png")
+  lava.image = love.graphics.newImage("pictures/smallfish.png")
 
   lava4 = {}
   lava4.x = 300
   lava4.y = 400
   lava4.width = 30
   lava4.height = 30
-  lava4.image = love.graphics.newImage("smallfish.png")
+  lava4.image = love.graphics.newImage("pictures/smallfish.png")
 
   lava2 = {}
   lava2.x = 300
   lava2.y = 400
   lava2.width = 30
   lava2.height = 30
-  lava2.image = love.graphics.newImage("smallfish.png")
-
-  
-
-  
+  lava2.image = love.graphics.newImage("pictures/smallfish.png") 
 end
 
 function love.update(dt)
@@ -122,8 +122,8 @@ if AABB(player.x, player.y, player.width, player.height, lava2.x, lava2.y, lava2
   score = score + 1
 end
 
-  if score == 20 then
-  love.window.showMessageBox("Victory", "shark 1 won!", "info")
+  if score == 21 then
+  love.window.showMessageBox("Victory", "Green shark won!, press ok to restart", "info")
   love.load()
 end
 if AABB(player2.x, player2.y, player2.width, player2.height, lava.x, lava.y, lava.width, lava.height) then
@@ -142,8 +142,8 @@ if AABB(player2.x, player2.y, player2.width, player2.height, lava2.x, lava2.y, l
   lava2.y = math.random(0, 600 - lava2.height)
   player2score = player2score + 1
 end
-if player2score == 20 then
-  love.window.showMessageBox("Victory", "shark 2 won!", "info")
+if player2score == 21 then
+  love.window.showMessageBox("Victory", "Blue shark won!, press ok to restart", "info")
   love.load()
 end
 end 
